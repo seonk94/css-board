@@ -1,15 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Container } from './style/common';
+import styled from '@emotion/styled';
+import PreviewCard from './components/PreviewCard';
+
+const Container = styled.div`
+  display: grid;
+  width: 100%;
+  height: 100%;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <Container>
-        <h3>Container!!</h3>
-      </Container>
-    </div>
+    <Container>
+      <PreviewCard></PreviewCard>
+    </Container>
   );
 }
 
