@@ -1,17 +1,26 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import PreviewCard from './components/PreviewCard';
+import { Grid, Container } from 'semantic-ui-react'
 
-const Container = styled.div`
-  display: grid;
-  width: 100%;
-  height: 100%;
-`;
+const PadddingGrid = styled(Grid)`
+  margin: 0px !important;
+  padding: 12px !important;
+`
 
 function App() {
   return (
     <Container>
-      <PreviewCard></PreviewCard>
+      <PadddingGrid doubling columns={2}>
+        <PreviewCard />
+        <PreviewCard />
+        <PreviewCard />
+        <PreviewCard />
+        <PreviewCard />
+        <PreviewCard />
+        <PreviewCard />
+        <PreviewCard />
+      </PadddingGrid>
     </Container>
   );
 }
