@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PreviewCard from './components/PreviewCard';
+import CircleComponent from './components/CircleComponent';
 import { Grid, Container } from 'semantic-ui-react'
 import { puffIn } from './style/animation';
 
@@ -33,6 +34,11 @@ export const LoadingDiv = styled('div') <{ show: boolean }>`
   }
 `
 
+const RootContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: grid
+`
 
 function App() {
 
@@ -42,21 +48,14 @@ function App() {
     setShow(false)
   }, 1900);
   return (
-    <Container>
+    <RootContainer>
+
       <LoadingDiv show={show}>
         <h1>Css Board!</h1>
       </LoadingDiv>
-      <PadddingGrid doubling columns={2}>
-        <PreviewCard />
-        <PreviewCard />
-        <PreviewCard />
-        <PreviewCard />
-        <PreviewCard />
-        <PreviewCard />
-        <PreviewCard />
-        <PreviewCard />
-      </PadddingGrid>
-    </Container>
+
+      <CircleComponent />
+    </RootContainer>
   );
 }
 
