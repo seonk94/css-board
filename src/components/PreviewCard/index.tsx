@@ -1,21 +1,21 @@
 
 import React from 'react';
-import { Grid, Card } from 'semantic-ui-react'
+import styled from '@emotion/styled';
 
-function PreviewCard() {
+const PreviewDiv = styled.div`
+    width: 200px;
+    height: 300px;
+    background: blue;
+    position: absolute;
+    bottom: -20px;
+`
+
+function PreviewCard({ style }: any) {
+    console.log(style)
     return (
-        <Grid.Column>
-            <Card fluid>
-                <Card.Content>
-                    <Card.Header>
-                        Card Title
-                    </Card.Header>
-                </Card.Content>
-                <Card.Content extra>
-                    짧은 설명
-                </Card.Content>
-            </Card>
-        </Grid.Column>
+        <PreviewDiv style={style}>
+            <h5>card</h5>
+        </PreviewDiv>
     );
 }
 

@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PreviewCard from './components/PreviewCard';
-import CircleComponent from './components/CircleComponent';
-import { Grid, Container } from 'semantic-ui-react'
 import { puffIn } from './style/animation';
 
-const PadddingGrid = styled(Grid)`
-  margin: 0px !important;
-  padding: 12px !important;
-`
 export const LoadingDiv = styled('div') <{ show: boolean }>`
   background: #fff;
   z-index: 9999;
@@ -40,21 +34,61 @@ const RootContainer = styled.div`
   display: grid
 `
 
+const AbsoluteContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+`
+
+const colorList: string[] = [
+  '#ced4da',
+  '#ff8787',
+  '#f783ac',
+  '#da77f2',
+  '#9775fa',
+  '#748ffc',
+  '#4dabf7',
+  '#3bc9db',
+  '#38d9a9',
+  '#69db7c',
+  '#a9e34b',
+  '#ffd43b',
+  '#ffa94d',
+]
+
 function App() {
 
-  const [show, setShow] = useState(true)
+  const [show, setShow] = useState(false)
 
   setTimeout(() => {
     setShow(false)
   }, 1900);
+
+
+  const getStyle = (index: number) => {
+    return {
+      background: colorList[index],
+      zIndex: index,
+      bottom: `-${index === 2 ? 33 : Math.abs(2 - index) * 53}px`,
+      left: `${100 / 5 * index}%`,
+      transform: `
+        rotate(${340 + index * 10}deg)
+      `
+    }
+  }
   return (
     <RootContainer>
+      <AbsoluteContainer>
+        <PreviewCard style={getStyle(0)} />
+        <PreviewCard style={getStyle(1)} />
+        <PreviewCard style={getStyle(2)} />
+        <PreviewCard style={getStyle(3)} />
+        <PreviewCard style={getStyle(4)} />
+      </AbsoluteContainer>
 
       <LoadingDiv show={show}>
         <h1>Css Board!</h1>
       </LoadingDiv>
-
-      <CircleComponent />
     </RootContainer>
   );
 }
