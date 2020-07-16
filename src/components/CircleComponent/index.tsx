@@ -1,38 +1,51 @@
-import React from 'react';
-import './index.css';
+import React, { useEffect, useState } from 'react';
 
-function CircleComponent() {
+interface CircleComponentProps {
+    parentSize: number;
+    angle: number;
+    count: number
+}
+function CircleComponent({ parentSize, angle, count }: CircleComponentProps) {
 
 
-    const menuClick = (e: any) => {
-        var items: any = document.querySelectorAll('.circle a');
+    const [radius, setRadius] = useState(parentSize / 2);
+    const [positions, setPositions] = useState<{ x: number, y: number }[]>([]);
 
-        for (var i = 0, l = items.length; i < l; i++) {
-            items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
 
-            items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+    const dx = [1, -1];
+    const dy = [-1, 1];
+
+    const init = () => {
+
+        for (let i = angle; i >= 0; i -= angle / count) {
+            positions.push({
+                x: Math.floor(radius * Math.cos(degreesToRadius(i))),
+                y: Math.floor(radius * Math.sin(degreesToRadius(i))),
+            })
         }
-        console.log(e)
-        document.querySelector('.circle')!.classList.toggle('open');
     }
+
+    const degreesToRadius = (degrees: number) => {
+        const pi = Math.PI;
+        return degrees * (pi / 180);
+    }
+
+    const backTracking = (start: number, end: number, c: number) => {
+        if (end <= start) {
+            positions.push({
+                x: positions[start].x * dx[c],
+                y: positions[end].y * dy[c],
+            });
+
+            backTracking(start - 1, end, c);
+        }
+    }
+
+    init();
+    console.log(positions)
+
     return (
-
-        <nav className="circular-menu">
-
-            <div className="circle open">
-                <a href="" className="fa fa-home fa-2x"></a>
-                <a href="" className="fa fa-facebook fa-2x"></a>
-                <a href="" className="fa fa-twitter fa-2x"></a>
-                <a href="" className="fa fa-linkedin fa-2x"></a>
-                <a href="" className="fa fa-github fa-2x"></a>
-                <a href="" className="fa fa-rss fa-2x"></a>
-                <a href="" className="fa fa-pinterest fa-2x"></a>
-                <a href="" className="fa fa-asterisk fa-2x"></a>
-            </div>
-
-            <a href="#" className="menu-button fa fa-bars fa-2x" onClick={menuClick}></a>
-
-        </nav>
+        <div></div>
     );
 }
 
