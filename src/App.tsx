@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import PreviewCard from './components/PreviewCard';
 import { puffIn } from './style/animation';
+import CircleComponent from './components/CircleComponent';
 
 export const LoadingDiv = styled('div') <{ show: boolean }>`
   background: #fff;
@@ -78,14 +79,18 @@ function App() {
   }
   return (
     <RootContainer>
-      <AbsoluteContainer>
+      {/* <AbsoluteContainer>
         <PreviewCard style={getStyle(0)} />
         <PreviewCard style={getStyle(1)} />
         <PreviewCard style={getStyle(2)} />
         <PreviewCard style={getStyle(3)} />
         <PreviewCard style={getStyle(4)} />
-      </AbsoluteContainer>
-
+      </AbsoluteContainer> */}
+      <CircleComponent
+        parentSize={500}
+        angle={90}
+        count={3}
+      />
       <LoadingDiv show={show}>
         <h1>Css Board!</h1>
       </LoadingDiv>
