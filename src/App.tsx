@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
 import PreviewCard from './components/PreviewCard';
 import { puffIn } from './style/animation';
 import CircleComponent from './components/CircleComponent';
+import styled from "styled-components"
 
 export const LoadingDiv = styled('div') <{ show: boolean }>`
   background: #fff;
