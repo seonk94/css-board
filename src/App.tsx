@@ -3,6 +3,7 @@ import PreviewCard from './components/PreviewCard';
 import { puffIn } from './style/animation';
 import CircleComponent from './components/CircleComponent';
 import styled from "styled-components"
+import { colorList } from './constants/Colors';
 
 export const LoadingDiv = styled('div') <{ show: boolean }>`
   background: #fff;
@@ -40,22 +41,6 @@ const AbsoluteContainer = styled.div`
   width: 100%;
   position: absolute;
 `
-
-const colorList: string[] = [
-  '#ced4da',
-  '#ff8787',
-  '#f783ac',
-  '#da77f2',
-  '#9775fa',
-  '#748ffc',
-  '#4dabf7',
-  '#3bc9db',
-  '#38d9a9',
-  '#69db7c',
-  '#a9e34b',
-  '#ffd43b',
-  '#ffa94d',
-]
 
 function App() {
 

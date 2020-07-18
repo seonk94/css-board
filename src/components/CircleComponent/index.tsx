@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Square from '../Square';
 import './index.css'
+import { colorList } from '../../constants/Colors';
 interface CircleComponentProps {
     parentSize: number;
     angle: number;
@@ -50,6 +51,7 @@ function CircleComponent({ parentSize, angle, count }: CircleComponentProps) {
         <div className="circle-container">
             {positions.map((item, i) => {
                 return <Square
+                    color={colorList[i]}
                     x={item.x + radius - (parentSize / 6) / 2}
                     y={item.y + radius - (parentSize / 6) / 2}
                     height={parentSize / 6}

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
 interface SquareProps {
+    color: string;
     x: number;
     y: number;
     width: number;
     height: number;
 }
 
-function Square({ x, y, width, height }: SquareProps) {
-    console.log(x, y)
+function Square({ color, x, y, width, height }: SquareProps) {
     return (
-        <div className='square' style={{ transform: `translate(${x}px, ${y}px)` }}>
+        <div className='square' style={{ background: color, transform: `translate(${x}px, ${y}px)` }}>
 
         </div>
     )
