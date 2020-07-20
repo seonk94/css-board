@@ -13,7 +13,7 @@ interface CircleComponentProps {
 function CircleComponent({ parentSize, angle, count }: CircleComponentProps) {
 
 
-    const [radius, setRadius] = useState(parentSize / 2);
+    const radius = parentSize / 2
     const positions: { x: number, y: number }[] = []
     const [squares, setSquares] = useState<Square[]>([])
 
@@ -22,7 +22,8 @@ function CircleComponent({ parentSize, angle, count }: CircleComponentProps) {
 
     useEffect(() => {
         init();
-    }, [positions])
+    }, [])
+
 
     const init = () => {
         for (let i = angle; i >= 0; i -= angle / count) {
@@ -43,6 +44,7 @@ function CircleComponent({ parentSize, angle, count }: CircleComponentProps) {
             )])
         })
     }
+
 
     const degreesToRadius = (degrees: number) => {
         const pi = Math.PI;

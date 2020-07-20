@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { puffIn } from './style/animation';
 import CircleComponent from './components/CircleComponent';
 import styled from "styled-components"
-import { colorList } from './constants/Colors';
 
 export const LoadingDiv = styled('div') <{ show: boolean }>`
   background: #fff;
@@ -36,41 +35,17 @@ const RootContainer = styled.div`
   overflow: hidden;
 `
 
-const AbsoluteContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-`
-
 function App() {
 
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
 
   setTimeout(() => {
     setShow(false)
   }, 1900);
 
 
-  const getStyle = (index: number) => {
-    return {
-      background: colorList[index],
-      zIndex: index,
-      bottom: `-${index === 2 ? 33 : Math.abs(2 - index) * 53}px`,
-      left: `${100 / 5 * index}%`,
-      transform: `
-        rotate(${340 + index * 10}deg)
-      `
-    }
-  }
   return (
     <RootContainer>
-      {/* <AbsoluteContainer>
-        <PreviewCard style={getStyle(0)} />
-        <PreviewCard style={getStyle(1)} />
-        <PreviewCard style={getStyle(2)} />
-        <PreviewCard style={getStyle(3)} />
-        <PreviewCard style={getStyle(4)} />
-      </AbsoluteContainer> */}
       <CircleComponent
         parentSize={500}
         angle={90}
