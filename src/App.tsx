@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PreviewCard from './components/PreviewCard';
 import { puffIn } from './style/animation';
 import CircleComponent from './components/CircleComponent';
 import styled from "styled-components"
@@ -31,9 +30,10 @@ export const LoadingDiv = styled('div') <{ show: boolean }>`
 `
 
 const RootContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  display: grid
+  height: 100vh;
+  width: 100vh;
+  display: grid;
+  overflow: hidden;
 `
 
 const AbsoluteContainer = styled.div`

@@ -1,7 +1,25 @@
 .circle-container {
     position: relative;
+    transform: translate(0, 198%);
+    height: 300px;
+}
+
+.prev-btn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.next-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.circle-div {
+    position: relative;
     border-radius: 50%;
-    top: 50%;
+    top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
