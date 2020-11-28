@@ -1,7 +1,6 @@
 import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import React, { useState } from 'react';
-import { Spacer } from 'src/style/GlobalStyle';
 
 function Appbar() {
 
