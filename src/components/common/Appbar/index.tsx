@@ -1,6 +1,7 @@
 import { AppBar, IconButton, Menu, MenuItem, Toolbar } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import React, { useState } from 'react';
+import { Spacer } from 'src/style/GlobalStyle';
 
 function Appbar() {
 
@@ -16,9 +17,9 @@ function Appbar() {
   };
 
   return (
-    <AppBar>
+    <AppBar position="relative">
       <Toolbar>
-        <div style={{ flexGrow : 1}}></div>
+        <div style={{ flexGrow : 1 }}/>
         <IconButton onClick={handleMenu}>
           <AccountCircle/>            
         </IconButton>

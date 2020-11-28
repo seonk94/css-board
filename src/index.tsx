@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Root from './router';
-import { GlobalStyle } from './style/GlobalStyle';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <Root />
-    <GlobalStyle />
   </React.StrictMode>,
   document.getElementById('root')
 );
