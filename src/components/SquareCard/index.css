@@ -1,8 +1,0 @@
-.square {
-    position: absolute;
-    transition: all 0.25s linear;
-    border: 1px solid #000;
-    background: #000;
-    width: 80px;
-    height: 80px;
-}

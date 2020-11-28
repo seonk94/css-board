@@ -1,60 +1,25 @@
-import React, { useState } from 'react';
-import { puffIn } from './style/animation';
-import CircleComponent from './components/CircleComponent';
-import styled from "styled-components"
-
-export const LoadingDiv = styled('div') <{ show: boolean }>`
-  background: #fff;
-  z-index: 9999;
-  display: ${(props) => props.show ? 'grid' : 'none'};
-  overflow: hidden;
-  align-items: center;
-  text-align: center;
-
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0px;
-  left: 0px;
-
-  h1 {
-    animation: ${puffIn} 2s ease;
-    width: fit-content;
-    margin: auto;
-    padding: 12px;
-    background: #495057;
-    border-radius: 8px;
-    color: #fff;
-  }
-`
-
-const RootContainer = styled.div`
-  height: 100vh;
-  width: 100vh;
-  display: grid;
-  overflow: hidden;
-`
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-
-  const [show, setShow] = useState(true)
-
-  setTimeout(() => {
-    setShow(false)
-  }, 1900);
-
-
   return (
-    <RootContainer>
-      <CircleComponent
-        parentSize={500}
-        angle={90}
-        count={3}
-      />
-      <LoadingDiv show={show}>
-        <h1>Css Board!</h1>
-      </LoadingDiv>
-    </RootContainer>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
   );
 }
 
