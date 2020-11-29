@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, IconButton } from '@material-ui/core';
+import { Box, Button, Card, CardContent, IconButton, Paper } from '@material-ui/core';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
@@ -25,11 +25,11 @@ function AddCard() {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Paper variant="outlined" className={classes.root}>
       <Button className={classes.button}>
         <AddCircleOutlineIcon/>
       </Button>
-    </Card>
+    </Paper>
   );
 }
 
