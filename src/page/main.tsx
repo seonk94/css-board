@@ -1,10 +1,14 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import AddCard from 'src/components/common/AddCard';
+import RecordCard from 'src/components/RecordCard';
 
 const useStyles = makeStyles({
   gridContainer : {
     margin : '0px'
+  },
+  gridItem : {
+    width : '100%'
   }
 });
 function main() {
@@ -12,9 +16,15 @@ function main() {
 
   return (
     <Container maxWidth="md">
-      <Grid container spacing={3} className={classes.gridContainer}>
-        <Grid item xs={12}>
-          <AddCard/>
+      <Grid 
+        container 
+        className={classes.gridContainer} 
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item className={classes.gridItem} xs={12} md={8}>
+          <RecordCard />
         </Grid>
       </Grid>
     </Container>
