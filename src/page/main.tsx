@@ -8,7 +8,8 @@ const useStyles = makeStyles({
     margin : '0px'
   },
   gridItem : {
-    width : '100%'
+    width : '100%',
+    padding : '12px'
   }
 });
 function main() {
@@ -22,7 +23,6 @@ function main() {
         direction="column"
         justify="center"
         alignItems="center"
-        spacing={4}
       >
         <Grid item className={classes.gridItem} xs={12} md={8}>
           <RecordCard isEmpty/>
