@@ -22,9 +22,13 @@ function main() {
         direction="column"
         justify="center"
         alignItems="center"
+        spacing={4}
       >
         <Grid item className={classes.gridItem} xs={12} md={8}>
-          <RecordCard />
+          <RecordCard isEmpty/>
+        </Grid>
+        <Grid item className={classes.gridItem} xs={12} md={8}>
+          <RecordCard/>
         </Grid>
       </Grid>
     </Container>
