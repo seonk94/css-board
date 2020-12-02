@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     height : '100%'
   },
   typography : {
-    color : '#fff'
+    color : '#fff',
+    marginBottom : '12px'
   },
   button : {
     color : '#fff',
@@ -33,7 +34,6 @@ function AddCover() {
         alignItems="center"
         justify="center"
         className={classes.container}
-        spacing={4}
       >
         <Grid item>
           <Typography variant="h5" component="p" className={classes.typography}>
