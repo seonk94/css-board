@@ -5,11 +5,14 @@ import Root from './router';
 import './index.css';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './style/MaterialUiTheme';
+import AuthProvider from './provider/AuthProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Root />
+      <AuthProvider>
+        <Root />
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
