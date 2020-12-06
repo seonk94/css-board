@@ -30,6 +30,9 @@ module.exports = {
     'comma-spacing' : ['error', { before : false, after : true }],
     'arrow-spacing' : ['error', { before : true, after : true }],
     'no-whitespace-before-property' : 'error',
-    'key-spacing' : ['error', { beforeColon : true, afterColon : true }]
+    'key-spacing' : ['error', { beforeColon : true, afterColon : true }],
+    'func-call-spacing' : ['error', 'never'],
+    'brace-style' : ['error', '1tbs', { 'allowSingleLine' : true }],
+    'react/jsx-max-props-per-line' : ['error', { 'when' : 'always' }]
   }
 };

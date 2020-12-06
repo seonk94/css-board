@@ -19,7 +19,8 @@ function AddCard() {
   const classes = useStyles();
 
   return (
-    <Card variant="outlined" className={classes.root}>
+    <Card variant="outlined"
+      className={classes.root}>
       <Button className={classes.button}>
         <AddCircleOutlineIcon/>
       </Button>

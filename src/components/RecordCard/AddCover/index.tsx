@@ -36,12 +36,15 @@ function AddCover() {
         className={classes.container}
       >
         <Grid item>
-          <Typography variant="h5" component="p" className={classes.typography}>
+          <Typography variant="h5"
+            component="p"
+            className={classes.typography}>
             기념일을 등록해보세요.
           </Typography>
         </Grid>
         <Grid item>
-          <Button className={classes.button} variant="outlined">
+          <Button className={classes.button}
+            variant="outlined">
             추가하기
           </Button>
         </Grid>

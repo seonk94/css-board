@@ -10,9 +10,14 @@ function Root() {
     <BrowserRouter>
       <Appbar />
       <Switch>
-        <Route exact path="/" component={main} />
-        <Route exact path="/login" component={login} />
-        <Redirect path="*" to="/" />
+        <Route exact
+          path="/"
+          component={main} />
+        <Route exact
+          path="/login"
+          component={login} />
+        <Redirect path="*"
+          to="/" />
       </Switch>
       
     </BrowserRouter>

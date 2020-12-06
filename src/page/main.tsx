@@ -24,12 +24,16 @@ function main() {
         justify="center"
         alignItems="center"
       >
-        <Grid item className={classes.gridItem}
-          xs={12} md={8}>
+        <Grid item
+          className={classes.gridItem}
+          xs={12}
+          md={8}>
           <RecordCard isEmpty/>
         </Grid>
-        <Grid item className={classes.gridItem}
-          xs={12} md={8}>
+        <Grid item
+          className={classes.gridItem}
+          xs={12}
+          md={8}>
           <RecordCard/>
         </Grid>
       </Grid>

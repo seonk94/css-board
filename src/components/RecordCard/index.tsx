@@ -23,7 +23,8 @@ function RecordCard({ isEmpty = false } : Props) {
   const classes = useStyles();
 
   return (
-    <Card variant="outlined" className={classes.root}>
+    <Card variant="outlined"
+      className={classes.root}>
       <CardHeader 
         className={classes.header}
         avatar={
@@ -43,7 +44,9 @@ function RecordCard({ isEmpty = false } : Props) {
         title="Preview Img"
       />
       <CardContent>
-        <Typography variant="body2" component="p" color="textSecondary">
+        <Typography variant="body2"
+          component="p"
+          color="textSecondary">
           2020-11-29... 집에 가다가
         </Typography>
       </CardContent>
