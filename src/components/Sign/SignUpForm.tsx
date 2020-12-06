@@ -1,7 +1,8 @@
-import { Box, Button, Card, CardContent, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardContent, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import { firebaseAuth } from 'src/provider/AuthProvider';
-import SignUpForm from './SignUpForm';
+
+
 
 const useStyles = makeStyles({
   card : {
@@ -32,49 +33,37 @@ const useStyles = makeStyles({
     margin : 0,
     flexShrink : 0,
     backgroundColor : '#212121'
-  },
-  modal : {
-    display : 'flex',
-    alignItems : 'center',
-    justifyContent : 'center'
   }
 });
 
-function SignInForm() {
 
+function SignUpForm() {
   const classes = useStyles();
 
-  const [signUpModal, setSignUpModal] = useState(false);
+  
   const [inputs, setInputs] = useState({
     email : '',
     password : ''
   });
 
-  const { signIn } = useContext(firebaseAuth);
+  const { signUp } = useContext(firebaseAuth);
 
-  const handleSubmit = () => {
-    signIn(inputs.email, inputs.password);
-  };
 
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputs(prev => ({ ...prev, [name] : value }));
   };
 
-  const handleSignUp = () => {
-    setSignUpModal(true);
+  const handleSubmit = () => {
+    signUp(inputs.email, inputs.password);
   };
 
-  const handleClose = () => {
-    setSignUpModal(false);
-  };
-
-  return <>
+  return (
     <Card className={classes.card}>
       <CardContent>
         <Box>
           <Typography variant="h4">
-      Login
+        Login
           </Typography>
         </Box>
         <form>
@@ -103,32 +92,12 @@ function SignInForm() {
               className={classes.blockbutton}
               onClick={handleSubmit}
             >
-        SignIn
+          SignUp
             </Button>
           </Box>
         </form>
-        <Box className={classes.linebox}>
-          <hr className={classes.line}/>
-          <p className={classes.paragraph}>or</p>
-          <hr className={classes.line}/>
-        </Box>
-        <Box>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            className={classes.blockbutton}
-            onClick={handleSignUp}
-          >
-      SignUp
-          </Button>
-        </Box>
       </CardContent>
     </Card>
-    <Modal open={signUpModal}
-      onClose={handleClose}
-      className={classes.modal}>
-      <SignUpForm />            
-    </Modal>
-  </>;
+  );
 }
-export default SignInForm;
+export default SignUpForm;
