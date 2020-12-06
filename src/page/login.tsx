@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
-import LoginForm from 'src/components/Login/LoginForm';
+import SignInForm from 'src/components/Sign/SignInForm';
 import AuthProvider, { firebaseAuth } from 'src/provider/AuthProvider';
 
 const useStyles = makeStyles({
@@ -19,7 +19,7 @@ function login() {
       className={classes.root}
     >
       <Grid item xs={12} md={4} sm={6}>
-        <LoginForm/>
+        <SignInForm/>
       </Grid>
     </Grid>
   );
