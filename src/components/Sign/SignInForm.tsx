@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardContent, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import SignUpForm from './SignUpForm';
 
@@ -43,7 +44,8 @@ const useStyles = makeStyles({
 function SignInForm() {
 
   const classes = useStyles();
-
+  
+  const history = useHistory();
   const [signUpModal, setSignUpModal] = useState(false);
   const [inputs, setInputs] = useState({
     email : '',
@@ -54,6 +56,7 @@ function SignInForm() {
 
   const handleSubmit = () => {
     signIn(inputs.email, inputs.password);
+    history.push('/');
   };
 
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +96,7 @@ function SignInForm() {
               label="Password" 
               variant="outlined"
               name="password"
+              type="password"
               onChange={handleChange}
             />
           </Box>
@@ -103,7 +107,7 @@ function SignInForm() {
               className={classes.blockbutton}
               onClick={handleSubmit}
             >
-        SignIn
+              로그인
             </Button>
           </Box>
         </form>
@@ -119,15 +123,20 @@ function SignInForm() {
             className={classes.blockbutton}
             onClick={handleSignUp}
           >
-      SignUp
+            회원가입
           </Button>
         </Box>
       </CardContent>
     </Card>
-    <Modal open={signUpModal}
+    <Modal 
+      open={signUpModal}
       onClose={handleClose}
-      className={classes.modal}>
-      <SignUpForm />            
+      className={classes.modal}
+      aria-labelledby="회원가입"
+    >
+      <div>
+        <SignUpForm></SignUpForm>            
+      </div>
     </Modal>
   </>;
 }

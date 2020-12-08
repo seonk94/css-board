@@ -40,14 +40,12 @@ const useStyles = makeStyles({
 function SignUpForm() {
   const classes = useStyles();
 
-  
   const [inputs, setInputs] = useState({
     email : '',
     password : ''
   });
 
   const { signUp } = useContext(firebaseAuth);
-
 
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -82,6 +80,7 @@ function SignUpForm() {
               label="Password" 
               variant="outlined"
               name="password"
+              type="password"
               onChange={handleChange}
             />
           </Box>
