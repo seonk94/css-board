@@ -2,21 +2,9 @@ import { auth } from '.';
 
 export const authMethods = {
   signIn : (email : string, password : string) => {
-    auth.signInWithEmailAndPassword(email, password)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return auth.signInWithEmailAndPassword(email, password);
   },
   signUp : (email : string, password : string) => {
-    auth.createUserWithEmailAndPassword(email, password)  
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    return auth.createUserWithEmailAndPassword(email, password);
   }
 };
