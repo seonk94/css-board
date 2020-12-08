@@ -13,7 +13,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
-    'plugin:import/warnings',
     'plugin:@typescript-eslint/recommended'
   ],
   env : {
@@ -33,6 +32,7 @@ module.exports = {
     'key-spacing' : ['error', { beforeColon : true, afterColon : true }],
     'func-call-spacing' : ['error', 'never'],
     'brace-style' : ['error', '1tbs', { 'allowSingleLine' : true }],
-    'react/jsx-max-props-per-line' : ['error', { 'when' : 'always' }]
+    'react/jsx-max-props-per-line' : ['error', { 'when' : 'always' }],
+    '@typescript-eslint/no-explicit-any' : 'off'
   }
 };
