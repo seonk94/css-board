@@ -1,6 +1,7 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import AddCard from 'src/components/common/AddCard';
+import EditCard from 'src/components/EditCard';
 import RecordCard from 'src/components/RecordCard';
 
 const useStyles = makeStyles({
