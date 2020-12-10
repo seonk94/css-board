@@ -18,10 +18,15 @@ const useStyles = makeStyles({
   },
   blockbutton : {
     width : '100%'
+  },
+  calendar : {
+    width : '100%',
+    marginBottom : '24px'
   }
 });
 function EditCard() {
   const classes = useStyles();
+  const today = new Date().toISOString().slice(0, 10);
 
   return (
     <Paper variant="outlined"
@@ -41,10 +46,21 @@ function EditCard() {
           </Typography>
           <TextField
             className={classes.textarea} 
-            // label="Description"
             variant="outlined"
             multiline
             rows={5}
+          />
+        </Box>
+        <Box>
+          <TextField
+            className={classes.calendar}
+            label="Date"
+            type="date"
+            defaultValue={today}
+            variant="outlined"
+            InputLabelProps={{
+              shrink : true
+            }}
           />
         </Box>
         <Box>
