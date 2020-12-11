@@ -1,8 +1,8 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
-import React from 'react';
-import AddCard from 'src/components/common/AddCard';
-import EditCard from 'src/components/EditCard';
+import React, { useEffect, useState } from 'react';
 import RecordCard from 'src/components/RecordCard';
+import { getRecords } from 'src/firebase/database/record';
+import { IRecord } from 'src/types';
 
 const useStyles = makeStyles({
   gridContainer : {
@@ -15,6 +15,17 @@ const useStyles = makeStyles({
 });
 function main() {
   const classes = useStyles();
+  const [records, setRecords] = useState([] as IRecord[]);
+
+  useEffect(() => {
+    const fetchRecords = async () => {
+      const records = await getRecords();
+      setRecords([...records]);
+      return records;
+    };
+
+    fetchRecords();
+  }, []);
 
   return (
     <Container maxWidth="md">
@@ -25,18 +36,15 @@ function main() {
         justify="center"
         alignItems="center"
       >
-        <Grid item
-          className={classes.gridItem}
-          xs={12}
-          md={8}>
-          <RecordCard isEmpty/>
-        </Grid>
-        <Grid item
-          className={classes.gridItem}
-          xs={12}
-          md={8}>
-          <RecordCard/>
-        </Grid>
+        {records.map(record => 
+          <Grid 
+            item
+            key={record.id}
+            className={classes.gridItem}
+            xs={12}
+            md={8}>
+            <RecordCard record={record}/>
+          </Grid>)}
       </Grid>
     </Container>
   );
