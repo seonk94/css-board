@@ -1,6 +1,7 @@
 export interface IRecord {
-  id: string;
+  id: number;
   title: string;
   content: string;
+  dDay: string;
   image?: string;
 }
