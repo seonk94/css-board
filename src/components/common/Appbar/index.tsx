@@ -1,4 +1,4 @@
-import { AppBar, IconButton, makeStyles, Menu, MenuItem, Toolbar } from '@material-ui/core';
+import { AppBar, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
@@ -8,6 +8,14 @@ const useStyles = makeStyles({
   root : {
     position : 'sticky',
     top : 0
+  },
+  page : {
+    fontWeight : 700,
+    cursor : 'pointer',
+    marginRight : '12px',
+    '&:hover' : {
+      color : '#bbb'
+    }
   }
 });
 
@@ -27,7 +35,6 @@ function Appbar() {
   };
 
   const handleLoginMenuClick = (item : React.MouseEvent<HTMLElement>) => {
-    console.log(user);
     if (user) {
       signOut();
     } else {
@@ -39,8 +46,21 @@ function Appbar() {
   return (
     <AppBar className={classes.root}>
       <Toolbar>
+        {/* {pages.map(page => <Typography variant="body1"
+          key={page}
+          color="secondary"
+          component="span"
+          className={classes.page}
+          onClick={() => handlePageClick(page)}
+        >
+          {page.toUpperCase()}
+        </Typography>)} */}
+        
         <div style={{ flexGrow : 1 }}/>
-        <IconButton onClick={handleMenu}>
+        <IconButton 
+          onClick={handleMenu}
+          color="secondary"
+        >
           <AccountCircle/>            
         </IconButton>
         <Menu
