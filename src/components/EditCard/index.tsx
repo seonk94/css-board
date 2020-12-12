@@ -1,5 +1,7 @@
 import { Box, Button, Card, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
-import React from 'react';
+import moment from 'moment';
+import React, { useState } from 'react';
+import { postRecord } from 'src/firebase/database/record';
 
 const useStyles = makeStyles({
   root : {
@@ -26,8 +28,25 @@ const useStyles = makeStyles({
 });
 function EditCard() {
   const classes = useStyles();
-  const today = new Date().toISOString().slice(0, 10);
+  const today = moment(new Date).format('YYYY-MM-DD');
+  const [inputs, setInputs] = useState({
+    title : '',
+    content : ''
+  });
 
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInputs(prev => ({ ...prev, [name] : value }));
+  };
+
+  const handleSubmit = () => {
+    postRecord({
+      id : new Date().getTime(),
+      title : inputs.title,
+      content : inputs.content,
+      dDay : today
+    });
+  }; 
   return (
     <Paper variant="outlined"
       className={classes.root}>
@@ -38,6 +57,7 @@ function EditCard() {
             label="Title" 
             variant="outlined"
             name="title"
+            onChange={handleChange}
           />
         </Box>
         <Box>
@@ -48,6 +68,8 @@ function EditCard() {
             className={classes.textarea} 
             variant="outlined"
             multiline
+            name="content"
+            onChange={handleChange}
             rows={5}
           />
         </Box>
@@ -68,10 +90,10 @@ function EditCard() {
             variant="contained" 
             color="primary" 
             className={classes.blockbutton}
+            onClick={handleSubmit}
           >
             생성하기
           </Button>
-
         </Box>
       </div>
     </Paper>

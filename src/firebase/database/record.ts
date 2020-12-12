@@ -8,3 +8,14 @@ export async function getRecords() {
   if (doc.exists) return Object.values(doc.data() || {}) as IRecord[];
   return [] as IRecord[];
 }
+
+export async function postRecord(record : IRecord) {
+  try {
+    await idRef.doc('records').set({
+      [record.id] : record
+    }, { merge : true });
+    return record;
+  } catch(e) {
+    console.error(e);
+  }
+}
