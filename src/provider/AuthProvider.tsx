@@ -1,4 +1,4 @@
-import React, { ReactChild, useContext, useState } from 'react';
+import React, { ReactChild, useContext, useEffect, useState } from 'react';
 import { auth } from 'src/firebase';
 import { authMethods } from 'src/firebase/authmethods';
 
@@ -21,6 +21,12 @@ interface Props {
 }
 function AuthProvider({ children } : Props) {
   const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) setUser(user);
+    });
+  }, []);
 
   const handleSignUp = (email : string, password : string) => {
     return authMethods.signUp(email, password);
