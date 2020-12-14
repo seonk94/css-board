@@ -1,5 +1,5 @@
 import { AppBar, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { AccountCircle, Home } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
@@ -43,6 +43,10 @@ function Appbar() {
     }
   };
 
+  const handleIconClick = (route : string) => {
+    history.push(`/${route}`);
+  };
+
   return (
     <AppBar className={classes.root}>
       <Toolbar>
@@ -58,6 +62,18 @@ function Appbar() {
         
         <div style={{ flexGrow : 1 }}/>
         <IconButton 
+          onClick={() => handleIconClick('')}
+          color="secondary"
+        >
+          <Home/>            
+        </IconButton>
+        <IconButton 
+          onClick={() => handleIconClick('setting')}
+          color="secondary"
+        >
+          <AccountCircle/>            
+        </IconButton>
+        {/* <IconButton 
           onClick={handleMenu}
           color="secondary"
         >
@@ -69,7 +85,7 @@ function Appbar() {
           onClose={handleClose}
         >
           <MenuItem onClick={handleLoginMenuClick}>{user ? 'Logout' : 'Login'}</MenuItem>
-        </Menu>
+        </Menu> */}
       </Toolbar>
     </AppBar>
   );
