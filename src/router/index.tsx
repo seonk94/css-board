@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { BrowserRouter, Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import Appbar from 'src/components/common/Appbar';
 import login from 'src/page/login';
 import main from 'src/page/main';
@@ -11,8 +11,24 @@ import { firebaseAuth } from 'src/provider/AuthProvider';
 
 function Root() {
   const matches = useMediaQuery('(min-width:600px)');
+  const history = useHistory();
+  const { user } = useContext(firebaseAuth);
+
+  useEffect(() => {
+    if (!user) history.push('/login');
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    return () => { 
+      history.listen(location => {
+        if (!user && location.pathname !== '/login') history.push('/login');
+      });
+      mounted = false; 
+    };
+  }, [history]);
   return (
-    <BrowserRouter>
+    <>
       {matches && <Appbar/>}
       <Switch>
         <Route exact
@@ -30,8 +46,8 @@ function Root() {
         <Redirect path="*"
           to="/" />
       </Switch>
-      {!matches && <BottomNavigator/>}
-    </BrowserRouter>
+      {!matches && <BottomNavigator/>} 
+    </>
   );
 }
 export default Root;

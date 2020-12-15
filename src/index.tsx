@@ -6,12 +6,15 @@ import './index.css';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './style/MaterialUiTheme';
 import AuthProvider from './provider/AuthProvider';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Root />
+        <BrowserRouter>
+          <Root />
+        </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,
