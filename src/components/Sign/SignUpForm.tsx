@@ -33,6 +33,9 @@ const useStyles = makeStyles({
     margin : 0,
     flexShrink : 0,
     backgroundColor : '#212121'
+  },
+  errortypo : {
+    color : 'red'
   }
 });
 
@@ -45,15 +48,18 @@ function SignUpForm() {
     password : ''
   });
 
-  const { signUp } = useContext(firebaseAuth);
+  const { signUp, error } = useContext(firebaseAuth);
 
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputs(prev => ({ ...prev, [name] : value }));
   };
 
-  const handleSubmit = () => {
-    signUp(inputs.email, inputs.password);
+  const handleSubmit = async () => {
+    const result = await signUp(inputs.email, inputs.password);
+    if (result) {
+      
+    }
   };
 
   return (
@@ -61,7 +67,7 @@ function SignUpForm() {
       <CardContent>
         <Box>
           <Typography variant="h4">
-        Login
+            회원가입
           </Typography>
         </Box>
         <form>
@@ -84,6 +90,15 @@ function SignUpForm() {
               onChange={handleChange}
             />
           </Box>
+          {error && <Box>
+            <Typography 
+              variant="body1"
+              component="p"
+              className={classes.errortypo}
+            >
+              {error}  
+            </Typography>  
+          </Box>}
           <Box>
             <Button 
               variant="contained" 
@@ -91,7 +106,7 @@ function SignUpForm() {
               className={classes.blockbutton}
               onClick={handleSubmit}
             >
-          SignUp
+              SIGNUP
             </Button>
           </Box>
         </form>

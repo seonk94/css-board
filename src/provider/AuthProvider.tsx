@@ -3,24 +3,21 @@ import { auth } from 'src/firebase';
 import { authMethods } from 'src/firebase/authmethods';
 
 interface ContextType {
-  signUp : (email: string, password: string) => Promise<firebase.default.auth.UserCredential>;
-  signIn : (email: string, password: string) => void;
+  signUp : (email: string, password: string) => Promise<boolean>;
+  signIn : (email: string, password: string) => Promise<boolean>;
   signOut : () => void;
   user : any;
+  error : null | string;
 }
 
-export const firebaseAuth = React.createContext<ContextType>({
-  signUp : (email: string, password: string) => { return; },
-  signIn : (email: string, password: string) => { return; },
-  signOut : () => { return; },
-  user : null
-} as ContextType);
+export const firebaseAuth = React.createContext<ContextType>({} as ContextType);
 
 interface Props {
   children : ReactChild
 }
 function AuthProvider({ children } : Props) {
   const [user, setUser] = useState<any>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
@@ -28,27 +25,40 @@ function AuthProvider({ children } : Props) {
     });
   }, []);
 
-  const handleSignUp = (email : string, password : string) => {
-    return authMethods.signUp(email, password);
+  const handleSignUp = async (email : string, password : string) => {
+    try {
+      await authMethods.signUp(email, password);
+      return true;
+    } catch(e) {
+      setError(e.message);
+      return false;
+    }
   };
   const handleSignIn = async (email : string, password : string) => {
     try {
       const res = await authMethods.signIn(email, password);
       setUser(res.user);
-      return res;
+      return true;
     } catch(e) {
-      console.error(e);
+      setError(e.message);
+      return false;
     }
   };
   const handleSignOut = () => {
-    setUser(null);
+    try {
+      auth.signOut();
+      setUser(null);
+    } catch(e) {
+      console.log(e.message);
+    }
   };
   return (
     <firebaseAuth.Provider value={{
       signUp : handleSignUp,
       signIn : handleSignIn,
       signOut : handleSignOut,
-      user : user
+      user : user,
+      error : error
     }}>
       {children}
     </firebaseAuth.Provider>

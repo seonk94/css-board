@@ -38,6 +38,9 @@ const useStyles = makeStyles({
     display : 'flex',
     alignItems : 'center',
     justifyContent : 'center'
+  },
+  errortypo : {
+    color : 'red'
   }
 });
 
@@ -52,16 +55,24 @@ function SignInForm() {
     password : ''
   });
 
-  const { signIn } = useContext(firebaseAuth);
+  const { signIn, error } = useContext(firebaseAuth);
 
-  const handleSubmit = () => {
-    signIn(inputs.email, inputs.password);
-    history.push('/');
+  const handleSubmit = async () => {
+    const result = await signIn(inputs.email, inputs.password);
+    if (result) {
+      history.push('/');
+    }
   };
 
   const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputs(prev => ({ ...prev, [name] : value }));
+  };
+
+  const handleKeyPress = (e : React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
   };
 
   const handleSignUp = () => {
@@ -97,9 +108,19 @@ function SignInForm() {
               variant="outlined"
               name="password"
               type="password"
+              onKeyPress={handleKeyPress}
               onChange={handleChange}
             />
           </Box>
+          {error && <Box>
+            <Typography 
+              variant="body1"
+              component="p"
+              className={classes.errortypo}
+            >
+              {error}  
+            </Typography>  
+          </Box>}
           <Box>
             <Button 
               variant="contained" 
