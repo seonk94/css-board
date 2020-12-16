@@ -114,4 +114,4 @@ function SignUpForm() {
     </Card>
   );
 }
-export default SignUpForm;
+export default React.memo(SignUpForm);

@@ -161,4 +161,4 @@ function SignInForm() {
     </Modal>
   </>;
 }
-export default SignInForm;
+export default React.memo(SignInForm);
