@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { BrowserRouter, Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Appbar from 'src/components/common/Appbar';
 import login from 'src/page/login';
 import main from 'src/page/main';
@@ -8,42 +8,34 @@ import { useMediaQuery } from '@material-ui/core';
 import BottomNavigator from 'src/components/common/BottomNavigatior';
 import setting from 'src/page/setting';
 import { firebaseAuth } from 'src/provider/AuthProvider';
+import AuthRoute from './AuthRoute';
 
 function Root() {
   const matches = useMediaQuery('(min-width:600px)');
-  const history = useHistory();
   const { user } = useContext(firebaseAuth);
 
-  useEffect(() => {
-    if (!user) history.push('/login');
-  }, []);
-
-  useEffect(() => {
-    let mounted = true;
-    return () => { 
-      history.listen(location => {
-        if (!user && location.pathname !== '/login') history.push('/login');
-      });
-      mounted = false; 
-    };
-  }, [history]);
   return (
     <>
       {matches && <Appbar/>}
       <Switch>
         <Route exact
-          path="/"
-          component={main} />
-        <Route exact
           path="/login"
           component={login} />
-        <Route exact
+        <AuthRoute exact
           path="/create"
+          user={user}
           component={create} />
-        <Route exact
+        <AuthRoute exact
           path="/setting"
+          user={user}
           component={setting} />
-        <Redirect path="*"
+        <AuthRoute
+          exact
+          path="/"
+          user={user}
+          component={main} />
+        <AuthRoute 
+          path="*"
           to="/" />
       </Switch>
       {!matches && <BottomNavigator/>} 
