@@ -1,4 +1,4 @@
-import React, { ReactChild, useContext, useEffect, useState } from 'react';
+import React, { createContext, ReactChild, useContext, useEffect, useState } from 'react';
 import { auth } from 'src/firebase';
 import { authMethods } from 'src/firebase/authmethods';
 
@@ -6,7 +6,7 @@ interface ContextType {
   signUp : (email: string, password: string) => Promise<boolean>;
   signIn : (email: string, password: string) => Promise<boolean>;
   signOut : () => void;
-  user : any;
+  user : null | firebase.default.User;
   error : null | string;
 }
 
@@ -15,6 +15,7 @@ export const firebaseAuth = React.createContext<ContextType>({} as ContextType);
 interface Props {
   children : ReactChild
 }
+
 function AuthProvider({ children } : Props) {
   const [user, setUser] = useState<any>(null);
   const [error, setError] = useState(null);
