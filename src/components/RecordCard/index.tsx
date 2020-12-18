@@ -1,11 +1,13 @@
 import { Avatar, Card, CardContent, CardHeader, CardMedia, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
+import moment from 'moment';
 import React from 'react';
+import { IRecord } from 'src/types';
 import CatImage from '../../assets/images/preview/cat_1.jpg';
 import AddCover from './AddCover';
 
 interface Props {
-  isEmpty? : boolean;
+  record : IRecord;
 }
 
 const useStyles = makeStyles({
@@ -19,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-function RecordCard({ isEmpty = false } : Props) {
+function RecordCard({ record } : Props) {
   const classes = useStyles();
 
   return (
@@ -35,22 +37,21 @@ function RecordCard({ isEmpty = false } : Props) {
             <MoreVert />
           </IconButton>
         }
-        title="고양이를 만난날..."
-        subheader=". 2020-11-29"
+        title={record.title}
+        subheader={record.dDay}
       />
       <CardMedia
         className={classes.media}
-        image={CatImage}
+        image={record.image !== '' ? record.image : CatImage}
         title="Preview Img"
       />
       <CardContent>
         <Typography variant="body2"
           component="p"
           color="textSecondary">
-          2020-11-29... 집에 가다가
+          {record.content}
         </Typography>
       </CardContent>
-      {isEmpty && <AddCover/>}
     </Card>
   );
 }
