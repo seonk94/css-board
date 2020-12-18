@@ -50,7 +50,7 @@ function AuthProvider({ children } : Props) {
       auth.signOut();
       setUser(null);
     } catch(e) {
-      console.log(e.message);
+      console.error(e.message);
     }
   };
   return (
