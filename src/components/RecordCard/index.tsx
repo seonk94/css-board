@@ -1,10 +1,8 @@
 import { Avatar, Card, CardContent, CardHeader, CardMedia, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import moment from 'moment';
 import React from 'react';
 import { IRecord } from 'src/types';
 import CatImage from '../../assets/images/preview/cat_1.jpg';
-import AddCover from './AddCover';
 
 interface Props {
   record : IRecord;
