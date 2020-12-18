@@ -1,6 +1,9 @@
-import { Box, Button, Card, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import { Box, Button, InputBase, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import { SwapVerticalCircleSharp } from '@material-ui/icons';
+import firebase from 'firebase/app';
 import moment from 'moment';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
+import { useHistory } from 'react-router';
 import { postRecord } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 
@@ -25,13 +28,29 @@ const useStyles = makeStyles({
   calendar : {
     width : '100%',
     marginBottom : '24px'
+  },
+  fileinput : {
+    display : 'none'
+  },
+  fileinputbutton : {
+    width : '100%',
+    marginBottom : '24px',
+    '&:hover' : {
+      border : '1px solid #000'
+    }
   }
 });
 function EditCard() {
   const classes = useStyles();
   const { user } = useContext(firebaseAuth);
   const today = moment(new Date).format('YYYY-MM-DD');
-  const [inputs, setInputs] = useState({
+  const fileInput = useRef<any>();
+  const history = useHistory();
+  const [file, setFile] = useState<File | null>(null);
+  const [inputs, setInputs] = useState<{
+    title : string,
+    content: string,
+  }>({
     title : '',
     content : ''
   });
@@ -41,15 +60,51 @@ function EditCard() {
     setInputs(prev => ({ ...prev, [name] : value }));
   };
 
+  const handlePhoto = (e : React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      setFile(file);
+    }
+  };
+
   const handleSubmit = () => {
     if (!user) return;
-    postRecord(user.uid, {
+
+    if (file) {
+      const storageRef = firebase.storage().ref();
+      const recordImageRef = storageRef.child(`record-images/${new Date().getTime()}`);
+  
+      const uploadTask = recordImageRef.put(file);
+
+      uploadTask.on('state_changed', (snapshot) => {
+        switch(snapshot.state) {
+        case firebase.storage.TaskState.PAUSED : break;
+        case firebase.storage.TaskState.RUNNING : break;
+        }
+      }, (error) => {
+        console.error(error);
+      }, () => {
+        uploadTask.snapshot.ref.getDownloadURL().then(url => {
+          submitPostRecord(user.uid, url);
+        });
+      });
+    } else {
+      submitPostRecord(user.uid);
+    }
+  };
+
+  const submitPostRecord = async(uid: string, url?: string) => {
+    const result = await postRecord(uid, {
       id : new Date().getTime(),
       title : inputs.title,
       content : inputs.content,
-      dDay : today
+      dDay : today,
+      image : url || ''
     });
-  }; 
+    if (result) history.push('/');
+    else alert('등록에 실패했습니다.');
+  };
+
   return (
     <Paper variant="outlined"
       className={classes.root}>
@@ -59,7 +114,7 @@ function EditCard() {
             className={classes.textfield} 
             label="Title" 
             variant="outlined"
-            name="title"
+            name="title" 
             onChange={handleChange}
           />
         </Box>
@@ -89,6 +144,19 @@ function EditCard() {
           />
         </Box>
         <Box>
+          <input 
+            type="file" 
+            className={classes.fileinput}
+            onChange={handlePhoto}
+            ref={fileInput}/>
+          <Button 
+            className={classes.fileinputbutton}
+            variant="outlined"
+            onClick={() => fileInput.current.click()}>
+            { file ? file.name : '사진 선택' }
+          </Button>
+        </Box>
+        <Box>
           <Button 
             variant="contained" 
             color="primary" 
@@ -102,4 +170,4 @@ function EditCard() {
     </Paper>
   );
 }
-export default EditCard;
+export default React.memo(EditCard);
