@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationAction, makeStyles } from '@material-ui/core';
-import { AccountCircle, Home } from '@material-ui/icons';
+import { AccountCircle, EventNote, Home } from '@material-ui/icons';
 import React from 'react';
 import { useHistory } from 'react-router';
 
@@ -16,20 +16,18 @@ function BottomNavigator() {
   const history = useHistory();
 
   const handleClickMenu = (label : string) => {
-    switch(label) {
-    case 'Home': return history.push('/'); 
-    case 'Setting': return history.push('/setting');
-    }
+    history.push(`/${label}`);
   };
 
   return <BottomNavigation className={classes.root}>
     <BottomNavigationAction 
-      label="Home"
-      onClick={() => handleClickMenu('Home')}
+      onClick={() => handleClickMenu('')}
       icon={<Home />} />
     <BottomNavigationAction 
-      label="Setting"
-      onClick={() => handleClickMenu('Setting')}
+      onClick={() => handleClickMenu('create')}
+      icon={<EventNote />} />
+    <BottomNavigationAction 
+      onClick={() => handleClickMenu('setting')}
       icon={<AccountCircle />} />
   </BottomNavigation>;
 }

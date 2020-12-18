@@ -1,5 +1,5 @@
 import { AppBar, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import { AccountCircle, Home } from '@material-ui/icons';
+import { AccountCircle, EventNote, Home } from '@material-ui/icons';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
@@ -49,23 +49,19 @@ function Appbar() {
 
   return (
     <AppBar className={classes.root}>
-      <Toolbar>
-        {/* {pages.map(page => <Typography variant="body1"
-          key={page}
-          color="secondary"
-          component="span"
-          className={classes.page}
-          onClick={() => handlePageClick(page)}
-        >
-          {page.toUpperCase()}
-        </Typography>)} */}
-        
+      <Toolbar>        
         <div style={{ flexGrow : 1 }}/>
         <IconButton 
           onClick={() => handleIconClick('')}
           color="secondary"
         >
           <Home/>            
+        </IconButton>
+        <IconButton 
+          onClick={() => handleIconClick('create')}
+          color="secondary"
+        >
+          <EventNote/>            
         </IconButton>
         <IconButton 
           onClick={() => handleIconClick('setting')}
