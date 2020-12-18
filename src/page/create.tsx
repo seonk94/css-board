@@ -1,6 +1,6 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
-import EditCard from 'src/components/EditCard';
+import { RecordEditCard } from 'src/components/Record';
 
 const useStyles = makeStyles({
   gridContainer : {
@@ -28,7 +28,7 @@ function create() {
         xs={12}
         md={8}
       >
-        <EditCard/>
+        <RecordEditCard />
       </Grid>
     </Grid>
   </Container>;

@@ -40,7 +40,7 @@ const useStyles = makeStyles({
     }
   }
 });
-function EditCard() {
+function RecordEditCard() {
   const classes = useStyles();
   const { user } = useContext(firebaseAuth);
   const today = moment(new Date).format('YYYY-MM-DD');
@@ -170,4 +170,4 @@ function EditCard() {
     </Paper>
   );
 }
-export default React.memo(EditCard);
+export default React.memo(RecordEditCard);

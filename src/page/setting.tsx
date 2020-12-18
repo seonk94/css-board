@@ -1,7 +1,7 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { useContext } from 'react';
 import UserInfoForm from 'src/components/Settings/UserInfoForm';
-import SignInForm from 'src/components/Sign/SignInForm';
+import { SignInForm } from 'src/components/Sign';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 
 const useStyles = makeStyles({

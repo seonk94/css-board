@@ -1,6 +1,6 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
-import RecordCard from 'src/components/RecordCard';
+import { RecordPreviewCard } from 'src/components/Record';
 import { getRecords } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { IRecord } from 'src/types';
@@ -46,7 +46,7 @@ function main() {
             className={classes.gridItem}
             xs={12}
             md={8}>
-            <RecordCard record={record}/>
+            <RecordPreviewCard record={record}/>
           </Grid>)}
       </Grid>
     </Container>

@@ -2,7 +2,7 @@ import { Box, Button, Card, CardContent, makeStyles, Modal, TextField, Typograph
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
-import SignUpForm from './SignUpForm';
+import { SignUpForm } from './';
 
 const useStyles = makeStyles({
   card : {

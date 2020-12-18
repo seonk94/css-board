@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-function RecordCard({ record } : Props) {
+function RecordPreviewCard({ record } : Props) {
   const classes = useStyles();
 
   return (
@@ -53,4 +53,4 @@ function RecordCard({ record } : Props) {
     </Card>
   );
 }
-export default RecordCard;
+export default RecordPreviewCard;

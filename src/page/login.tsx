@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
-import SignInForm from 'src/components/Sign/SignInForm';
+import { SignInForm } from 'src/components/Sign';
 import AuthProvider, { firebaseAuth } from 'src/provider/AuthProvider';
 
 const useStyles = makeStyles({
