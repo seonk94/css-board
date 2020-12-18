@@ -1,6 +1,6 @@
 import React, { createContext, ReactChild, useContext, useEffect, useState } from 'react';
 import { auth } from 'src/firebase';
-import { authMethods } from 'src/firebase/authmethods';
+import { authMethods } from 'src/firebase/auth/authmethods';
 
 interface ContextType {
   signUp : (email: string, password: string) => Promise<boolean>;

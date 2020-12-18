@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Appbar from 'src/components/common/Appbar';
+import Appbar from 'src/components/Appbar';
 import login from 'src/page/login';
 import main from 'src/page/main';
 import create from 'src/page/create';
 import { useMediaQuery } from '@material-ui/core';
-import BottomNavigator from 'src/components/common/BottomNavigatior';
+import BottomNavigator from 'src/components/BottomNavigatior';
 import setting from 'src/page/setting';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import AuthRoute from './AuthRoute';

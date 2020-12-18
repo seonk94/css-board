@@ -1,4 +1,4 @@
-import { auth } from '.';
+import { auth } from '..';
 
 export const authMethods = {
   signIn : (email : string, password : string) => {
