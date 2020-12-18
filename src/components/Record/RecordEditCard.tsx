@@ -1,5 +1,4 @@
-import { Box, Button, InputBase, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
-import { SwapVerticalCircleSharp } from '@material-ui/icons';
+import { Box, Button, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
 import firebase from 'firebase/app';
 import moment from 'moment';
 import React, { useContext, useRef, useState } from 'react';
