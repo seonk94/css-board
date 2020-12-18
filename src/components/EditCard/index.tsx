@@ -1,7 +1,8 @@
 import { Box, Button, Card, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { postRecord } from 'src/firebase/database/record';
+import { firebaseAuth } from 'src/provider/AuthProvider';
 
 const useStyles = makeStyles({
   root : {
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
 });
 function EditCard() {
   const classes = useStyles();
+  const { user } = useContext(firebaseAuth);
   const today = moment(new Date).format('YYYY-MM-DD');
   const [inputs, setInputs] = useState({
     title : '',
@@ -40,7 +42,8 @@ function EditCard() {
   };
 
   const handleSubmit = () => {
-    postRecord({
+    if (!user) return;
+    postRecord(user.uid, {
       id : new Date().getTime(),
       title : inputs.title,
       content : inputs.content,

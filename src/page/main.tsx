@@ -1,7 +1,8 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RecordCard from 'src/components/RecordCard';
 import { getRecords } from 'src/firebase/database/record';
+import { firebaseAuth } from 'src/provider/AuthProvider';
 import { IRecord } from 'src/types';
 
 const useStyles = makeStyles({
@@ -16,12 +17,14 @@ const useStyles = makeStyles({
 function main() {
   const classes = useStyles();
   const [records, setRecords] = useState([] as IRecord[]);
-
+  const { user } = useContext(firebaseAuth);
+  
   useEffect(() => {
     const fetchRecords = async () => {
-      const records = await getRecords();
-      setRecords([...records]);
-      return records;
+      if (user?.uid) {
+        const records = await getRecords(user.uid);
+        setRecords([...records]);
+      }
     };
 
     fetchRecords();

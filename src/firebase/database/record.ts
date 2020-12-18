@@ -1,17 +1,18 @@
 import { IRecord } from 'src/types';
 import { db } from '..';
 
-const idRef = db.collection('9e20wCoy0KRMB8ufdBKRUY9FJ5C3');
 
-export async function getRecords() {
-  const doc = await idRef.doc('records').get();
+export async function getRecords(id : string) {
+  const ref = db.collection(id);
+  const doc = await ref.doc('records').get();
   if (doc.exists) return Object.values(doc.data() || {}) as IRecord[];
   return [] as IRecord[];
 }
 
-export async function postRecord(record : IRecord) {
+export async function postRecord(id : string, record : IRecord) {
+  const ref = db.collection(id);
   try {
-    await idRef.doc('records').set({
+    await ref.doc('records').set({
       [record.id] : record
     }, { merge : true });
     return record;
