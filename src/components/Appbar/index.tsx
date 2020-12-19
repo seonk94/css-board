@@ -1,8 +1,7 @@
-import { AppBar, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, IconButton, makeStyles, Toolbar } from '@material-ui/core';
 import { AccountCircle, EventNote, Home } from '@material-ui/icons';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
-import { firebaseAuth } from 'src/provider/AuthProvider';
 
 const useStyles = makeStyles({
   root : {
@@ -22,26 +21,6 @@ const useStyles = makeStyles({
 function Appbar() {
   const classes = useStyles();
   const history = useHistory();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const { user, signOut } = useContext(firebaseAuth);
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLoginMenuClick = (item : React.MouseEvent<HTMLElement>) => {
-    if (user) {
-      signOut();
-    } else {
-      history.push('/login');
-      handleClose();
-    }
-  };
 
   const handleIconClick = (route : string) => {
     history.push(`/${route}`);
@@ -69,19 +48,6 @@ function Appbar() {
         >
           <AccountCircle/>            
         </IconButton>
-        {/* <IconButton 
-          onClick={handleMenu}
-          color="secondary"
-        >
-          <AccountCircle/>            
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleLoginMenuClick}>{user ? 'Logout' : 'Login'}</MenuItem>
-        </Menu> */}
       </Toolbar>
     </AppBar>
   );
