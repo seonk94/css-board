@@ -1,12 +1,14 @@
-import { Card, CardContent, CardHeader, CardMedia, makeStyles, Typography } from '@material-ui/core';
+import { CardContent, CardHeader, CardMedia, makeStyles, Paper, Typography } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import { getRecordById } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { IRecord } from 'src/types';
+import { NeumorphismBox } from 'src/style/Neumorphism';
 
 const useStyles = makeStyles({
   root : {
-
+    margin : '1rem',
+    ...NeumorphismBox
   },
   media : {
     height : 0,
@@ -31,7 +33,7 @@ function RecordDetailCard({ id } : Props) {
   }, []);
   return (
     record 
-      ? <Card variant="outlined"
+      ? <Paper
         className={classes.root}>
         <CardHeader
           title={record.title}
@@ -47,7 +49,7 @@ function RecordDetailCard({ id } : Props) {
             {record.content}
           </Typography>
         </CardContent>
-      </Card>
+      </Paper>
       : <h3>
         Not found Id
       </h3>

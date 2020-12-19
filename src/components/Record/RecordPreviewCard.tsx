@@ -1,9 +1,10 @@
-import { Avatar, Card, CardContent, CardHeader, CardMedia, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Avatar, CardContent, CardHeader, CardMedia, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import React from 'react';
 import { useHistory } from 'react-router';
 import { IRecord } from 'src/types';
 import CatImage from '../../assets/images/preview/cat_1.jpg';
+import { NeumorphismBox } from 'src/style/Neumorphism';
 
 interface Props {
   record : IRecord;
@@ -12,10 +13,12 @@ interface Props {
 const useStyles = makeStyles({
   root : {
     position : 'relative',
+    margin : '1rem',
+    boxSizing : 'border-box',
     '&:hover' : {
-      cursor : 'pointer',
-      border : '1px solid black'
-    }
+      cursor : 'pointer'
+    },
+    ...NeumorphismBox
   },
   header : {},
   media : {
@@ -33,19 +36,11 @@ function RecordPreviewCard({ record } : Props) {
   };
 
   return (
-    <Card variant="outlined"
+    <Paper
       onClick={handleClick}
       className={classes.root}>
       <CardHeader 
         className={classes.header}
-        avatar={
-          <Avatar>C</Avatar>
-        }
-        action={
-          <IconButton>
-            <MoreVert />
-          </IconButton>
-        }
         title={record.title}
         subheader={record.dDay}
       />
@@ -61,7 +56,7 @@ function RecordPreviewCard({ record } : Props) {
           {record.content}
         </Typography>
       </CardContent>
-    </Card>
+    </Paper>
   );
 }
 export default RecordPreviewCard;

@@ -5,10 +5,12 @@ import React, { useContext, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { postRecord } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
+import { NeumorphismBox } from 'src/style/Neumorphism';
 
 const useStyles = makeStyles({
   root : {
-    width : '100%'
+    margin : '1rem',
+    ...NeumorphismBox
   },
   container : {
     padding : '24px'
@@ -105,7 +107,7 @@ function RecordEditCard() {
   };
 
   return (
-    <Paper variant="outlined"
+    <Paper
       className={classes.root}>
       <div className={classes.container} >
         <Box>

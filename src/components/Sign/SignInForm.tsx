@@ -1,14 +1,15 @@
-import { Box, Button, Card, CardContent, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardContent, makeStyles, Modal, Paper, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { SignUpForm } from './';
+import { NeumorphismBox } from 'src/style/Neumorphism';
 
 const useStyles = makeStyles({
   card : {
-    width : '100%',
     maxWidth : '480px',
-    margin : 'auto'
+    margin : '1rem',
+    ...NeumorphismBox
   },
   textfield : {
     marginTop : '16px',
@@ -84,7 +85,7 @@ function SignInForm() {
   };
 
   return <>
-    <Card className={classes.card}>
+    <Paper className={classes.card}>
       <CardContent>
         <Box>
           <Typography variant="h4">
@@ -148,7 +149,7 @@ function SignInForm() {
           </Button>
         </Box>
       </CardContent>
-    </Card>
+    </Paper>
     <Modal 
       open={signUpModal}
       onClose={handleClose}

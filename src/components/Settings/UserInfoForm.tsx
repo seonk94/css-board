@@ -1,12 +1,13 @@
-import { Box, Button, Card, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Button, Card, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { firebaseAuth } from 'src/provider/AuthProvider';
-
+import { NeumorphismBox } from 'src/style/Neumorphism';
 const useStyles = makeStyles({
   root : {
-    width : '100%',
+    margin : '1rem',
     padding : '12px',
-    boxSizing : 'border-box'
+    boxSizing : 'border-box',
+    ...NeumorphismBox
   },
   typobox : {
     marginBottom : '12px'
@@ -25,7 +26,7 @@ function UserInfoForm() {
 
   return (
     user 
-      ? <Card variant="outlined"
+      ? <Paper
         className={classes.root}>
         <Box className={classes.typobox}>
           <Grid container>
@@ -55,7 +56,7 @@ function UserInfoForm() {
         로그아웃
           </Button>
         </Box>
-      </Card>
+      </Paper>
       : <h3>Error !!</h3>
   );
 }
