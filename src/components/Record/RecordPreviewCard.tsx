@@ -1,6 +1,7 @@
 import { Avatar, Card, CardContent, CardHeader, CardMedia, IconButton, makeStyles, Paper, Typography } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import React from 'react';
+import { useHistory } from 'react-router';
 import { IRecord } from 'src/types';
 import CatImage from '../../assets/images/preview/cat_1.jpg';
 
@@ -10,7 +11,11 @@ interface Props {
 
 const useStyles = makeStyles({
   root : {
-    position : 'relative'
+    position : 'relative',
+    '&:hover' : {
+      cursor : 'pointer',
+      border : '1px solid black'
+    }
   },
   header : {},
   media : {
@@ -21,9 +26,15 @@ const useStyles = makeStyles({
 
 function RecordPreviewCard({ record } : Props) {
   const classes = useStyles();
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push(`/d-day/${record.id}`);
+  };
 
   return (
     <Card variant="outlined"
+      onClick={handleClick}
       className={classes.root}>
       <CardHeader 
         className={classes.header}
