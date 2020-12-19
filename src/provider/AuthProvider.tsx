@@ -17,7 +17,7 @@ interface Props {
 }
 
 function AuthProvider({ children } : Props) {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<null | firebase.default.User>(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
