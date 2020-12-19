@@ -9,6 +9,7 @@ import BottomNavigator from 'src/components/BottomNavigatior';
 import setting from 'src/page/setting';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import AuthRoute from './AuthRoute';
+import dDay from 'src/page/dDay';
 
 function Root() {
   const matches = useMediaQuery('(min-width:600px)');
@@ -25,6 +26,10 @@ function Root() {
           path="/create"
           user={user}
           component={create} />
+        <AuthRoute exact
+          path="/d-day/:id"
+          user={user}
+          component={dDay} />
         <AuthRoute exact
           path="/setting"
           user={user}
