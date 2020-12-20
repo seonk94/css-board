@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardContent, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
+import useInputs from 'src/hooks/useInputs';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 
 
@@ -42,21 +43,14 @@ const useStyles = makeStyles({
 
 function SignUpForm() {
   const classes = useStyles();
-
-  const [inputs, setInputs] = useState({
+  const [form, onChange] = useInputs({
     email : '',
     password : ''
   });
-
   const { signUp, error } = useContext(firebaseAuth);
 
-  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputs(prev => ({ ...prev, [name] : value }));
-  };
-
   const handleSubmit = async () => {
-    const result = await signUp(inputs.email, inputs.password);
+    const result = await signUp(form.email, form.password);
     if (result) {
       
     }
@@ -77,7 +71,7 @@ function SignUpForm() {
               label="Email" 
               variant="outlined"
               name="email"
-              onChange={handleChange}
+              onChange={onChange}
             />
           </Box>
           <Box>
@@ -87,7 +81,7 @@ function SignUpForm() {
               variant="outlined"
               name="password"
               type="password"
-              onChange={handleChange}
+              onChange={onChange}
             />
           </Box>
           {error && <Box>

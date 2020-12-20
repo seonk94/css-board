@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { SignUpForm } from './';
 import { NeumorphismBox } from 'src/style/Neumorphism';
+import useInputs from 'src/hooks/useInputs';
 
 const useStyles = makeStyles({
   card : {
@@ -51,7 +52,7 @@ function SignInForm() {
   
   const history = useHistory();
   const [signUpModal, setSignUpModal] = useState(false);
-  const [inputs, setInputs] = useState({
+  const [form, onChange] = useInputs({
     email : '',
     password : ''
   });
@@ -59,15 +60,10 @@ function SignInForm() {
   const { signIn, error } = useContext(firebaseAuth);
 
   const handleSubmit = async () => {
-    const result = await signIn(inputs.email, inputs.password);
+    const result = await signIn(form.email, form.password);
     if (result) {
       history.push('/');
     }
-  };
-
-  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputs(prev => ({ ...prev, [name] : value }));
   };
 
   const handleKeyPress = (e : React.KeyboardEvent<HTMLDivElement>) => {
@@ -99,7 +95,7 @@ function SignInForm() {
               label="Email" 
               variant="outlined"
               name="email"
-              onChange={handleChange}
+              onChange={onChange}
             />
           </Box>
           <Box>
@@ -110,7 +106,7 @@ function SignInForm() {
               name="password"
               type="password"
               onKeyPress={handleKeyPress}
-              onChange={handleChange}
+              onChange={onChange}
             />
           </Box>
           {error && <Box>
