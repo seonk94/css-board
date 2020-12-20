@@ -9,6 +9,11 @@ import { firebaseAuth } from 'src/provider/AuthProvider';
 import { NeumorphismBox } from 'src/style/Neumorphism';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import useInputs from 'src/hooks/useInputs';
+import useDate from 'src/hooks/useDate';
+import DatePickerBox from '../common/DatePickerBox';
+import useFileInput from 'src/hooks/useFileInput';
+import FileInputBox from '../common/FileInputBox';
 
 const useStyles = makeStyles({
   root : {
@@ -47,29 +52,14 @@ const useStyles = makeStyles({
 function RecordEditCard() {
   const classes = useStyles();
   const { user } = useContext(firebaseAuth);
-  const [date, setDate] = useState(moment());
-  const fileInput = useRef<any>();
   const history = useHistory();
-  const [file, setFile] = useState<File | null>(null);
-  const [inputs, setInputs] = useState<{
-    title : string,
-    content: string,
-  }>({
+  
+  const [file, onFileChange] = useFileInput(null);
+  const [date, setDate] = useDate();
+  const [form, onChange] = useInputs({
     title : '',
     content : ''
   });
-
-  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInputs(prev => ({ ...prev, [name] : value }));
-  };
-
-  const handlePhoto = (e : React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      setFile(file);
-    }
-  };
 
   const handleSubmit = () => {
     if (!user) return;
@@ -100,8 +90,8 @@ function RecordEditCard() {
   const submitPostRecord = async(uid: string, url?: string) => {
     const result = await postRecord(uid, {
       id : new Date().getTime(),
-      title : inputs.title,
-      content : inputs.content,
+      title : form.title,
+      content : form.content,
       dDay : date.format('YYYY-MM-DD'),
       image : url || ''
     });
@@ -120,7 +110,7 @@ function RecordEditCard() {
               label="Title" 
               variant="outlined"
               name="title" 
-              onChange={handleChange}
+              onChange={onChange}
             />
           </Box>
           <Box>
@@ -132,35 +122,20 @@ function RecordEditCard() {
               variant="outlined"
               multiline
               name="content"
-              onChange={handleChange}
+              onChange={onChange}
               rows={5}
             />
           </Box>
-          <Box>
-            <DatePicker
-              value={date}
-              className={classes.calendar}
-              variant="inline"
-              format="YYYY-MM-DD"
-              inputVariant="outlined"
-              label="Date"
-              autoOk
-              onChange={date => setDate(date as moment.Moment)}
-            />
-          </Box>
-          <Box>
-            <input 
-              type="file" 
-              className={classes.fileinput}
-              onChange={handlePhoto}
-              ref={fileInput}/>
-            <Button 
-              className={classes.fileinputbutton}
-              variant="outlined"
-              onClick={() => fileInput.current.click()}>
-              { file ? file.name : '사진 선택' }
-            </Button>
-          </Box>
+          <DatePickerBox
+            date={date}
+            onChange={setDate}
+            classes={classes.calendar}
+          />
+          <FileInputBox
+            file={file}
+            onChange={onFileChange}
+            classes={classes.fileinputbutton}
+          />
           <Box>
             <Button 
               variant="contained" 
