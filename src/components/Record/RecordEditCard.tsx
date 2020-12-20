@@ -1,4 +1,5 @@
 import { Box, Button, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import { DatePicker } from '@material-ui/pickers';
 import firebase from 'firebase/app';
 import moment from 'moment';
 import React, { useContext, useRef, useState } from 'react';
@@ -6,6 +7,8 @@ import { useHistory } from 'react-router';
 import { postRecord } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { NeumorphismBox } from 'src/style/Neumorphism';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
 const useStyles = makeStyles({
   root : {
@@ -44,7 +47,7 @@ const useStyles = makeStyles({
 function RecordEditCard() {
   const classes = useStyles();
   const { user } = useContext(firebaseAuth);
-  const today = moment(new Date).format('YYYY-MM-DD');
+  const [date, setDate] = useState(moment());
   const fileInput = useRef<any>();
   const history = useHistory();
   const [file, setFile] = useState<File | null>(null);
@@ -99,7 +102,7 @@ function RecordEditCard() {
       id : new Date().getTime(),
       title : inputs.title,
       content : inputs.content,
-      dDay : today,
+      dDay : date.format('YYYY-MM-DD'),
       image : url || ''
     });
     if (result) history.push('/');
@@ -107,68 +110,70 @@ function RecordEditCard() {
   };
 
   return (
-    <Paper
-      className={classes.root}>
-      <div className={classes.container} >
-        <Box>
-          <TextField 
-            className={classes.textfield} 
-            label="Title" 
-            variant="outlined"
-            name="title" 
-            onChange={handleChange}
-          />
-        </Box>
-        <Box>
-          <Typography variant="h5">
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <Paper
+        className={classes.root}>
+        <div className={classes.container} >
+          <Box>
+            <TextField 
+              className={classes.textfield} 
+              label="Title" 
+              variant="outlined"
+              name="title" 
+              onChange={handleChange}
+            />
+          </Box>
+          <Box>
+            <Typography variant="h5">
               Description
-          </Typography>
-          <TextField
-            className={classes.textarea} 
-            variant="outlined"
-            multiline
-            name="content"
-            onChange={handleChange}
-            rows={5}
-          />
-        </Box>
-        <Box>
-          <TextField
-            className={classes.calendar}
-            label="Date"
-            type="date"
-            defaultValue={today}
-            variant="outlined"
-            InputLabelProps={{
-              shrink : true
-            }}
-          />
-        </Box>
-        <Box>
-          <input 
-            type="file" 
-            className={classes.fileinput}
-            onChange={handlePhoto}
-            ref={fileInput}/>
-          <Button 
-            className={classes.fileinputbutton}
-            variant="outlined"
-            onClick={() => fileInput.current.click()}>
-            { file ? file.name : '사진 선택' }
-          </Button>
-        </Box>
-        <Box>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            className={classes.blockbutton}
-            onClick={handleSubmit}
-          >
+            </Typography>
+            <TextField
+              className={classes.textarea} 
+              variant="outlined"
+              multiline
+              name="content"
+              onChange={handleChange}
+              rows={5}
+            />
+          </Box>
+          <Box>
+            <DatePicker
+              value={date}
+              className={classes.calendar}
+              variant="inline"
+              format="YYYY-MM-DD"
+              inputVariant="outlined"
+              label="Date"
+              autoOk
+              onChange={date => setDate(date as moment.Moment)}
+            />
+          </Box>
+          <Box>
+            <input 
+              type="file" 
+              className={classes.fileinput}
+              onChange={handlePhoto}
+              ref={fileInput}/>
+            <Button 
+              className={classes.fileinputbutton}
+              variant="outlined"
+              onClick={() => fileInput.current.click()}>
+              { file ? file.name : '사진 선택' }
+            </Button>
+          </Box>
+          <Box>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              className={classes.blockbutton}
+              onClick={handleSubmit}
+            >
             생성하기
-          </Button>
-        </Box>
-      </div>
-    </Paper>
+            </Button>
+          </Box>
+        </div>
+      </Paper>
+    </MuiPickersUtilsProvider>
   );
 }
 export default React.memo(RecordEditCard);
