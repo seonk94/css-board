@@ -7,13 +7,7 @@ import { useHistory } from 'react-router';
 import { postRecord } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { NeumorphismBox } from 'src/style/Neumorphism';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-import useInputs from 'src/hooks/useInputs';
-import useDate from 'src/hooks/useDate';
-import DatePickerBox from '../common/DatePickerBox';
-import useFileInput from 'src/hooks/useFileInput';
-import FileInputBox from '../common/FileInputBox';
+import RecordEditForm from './RecordEditForm';
 
 const useStyles = makeStyles({
   root : {
@@ -53,16 +47,21 @@ function RecordEditCard() {
   const classes = useStyles();
   const { user } = useContext(firebaseAuth);
   const history = useHistory();
-  
-  const [file, onFileChange] = useFileInput(null);
-  const [date, setDate] = useDate();
-  const [form, onChange] = useInputs({
-    title : '',
-    content : ''
-  });
 
-  const handleSubmit = () => {
+  const submitFunction = (title : string, content : string, date : moment.Moment, file : File | null) => {
     if (!user) return;
+
+    const submitPostRecord = async(uid: string, url?: string) => {
+      const result = await postRecord(uid, {
+        id : new Date().getTime(),
+        title : title,
+        content : content,
+        dDay : date.format('YYYY-MM-DD'),
+        image : url || ''
+      });
+      if (result) history.push('/');
+      else alert('등록에 실패했습니다.');
+    };
 
     if (file) {
       const storageRef = firebase.storage().ref();
@@ -86,69 +85,13 @@ function RecordEditCard() {
       submitPostRecord(user.uid);
     }
   };
-
-  const submitPostRecord = async(uid: string, url?: string) => {
-    const result = await postRecord(uid, {
-      id : new Date().getTime(),
-      title : form.title,
-      content : form.content,
-      dDay : date.format('YYYY-MM-DD'),
-      image : url || ''
-    });
-    if (result) history.push('/');
-    else alert('등록에 실패했습니다.');
-  };
-
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <Paper
-        className={classes.root}>
-        <div className={classes.container} >
-          <Box>
-            <TextField 
-              className={classes.textfield} 
-              label="Title" 
-              variant="outlined"
-              name="title" 
-              onChange={onChange}
-            />
-          </Box>
-          <Box>
-            <Typography variant="h5">
-              Description
-            </Typography>
-            <TextField
-              className={classes.textarea} 
-              variant="outlined"
-              multiline
-              name="content"
-              onChange={onChange}
-              rows={5}
-            />
-          </Box>
-          <DatePickerBox
-            date={date}
-            onChange={setDate}
-            classes={classes.calendar}
-          />
-          <FileInputBox
-            file={file}
-            onChange={onFileChange}
-            classes={classes.fileinputbutton}
-          />
-          <Box>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              className={classes.blockbutton}
-              onClick={handleSubmit}
-            >
-            생성하기
-            </Button>
-          </Box>
-        </div>
-      </Paper>
-    </MuiPickersUtilsProvider>
+    <Paper
+      className={classes.root}>
+      <div className={classes.container} >
+        <RecordEditForm submitFunction={submitFunction}/>
+      </div>
+    </Paper>
   );
 }
 export default React.memo(RecordEditCard);
