@@ -35,3 +35,15 @@ export async function postRecord(uid : string, record : IRecord) {
     return null;
   }
 }
+
+export async function putRecord(uid: string, record: IRecord) {
+  const ref = db.collection(uid);
+  const docId = String(record.id);
+  try {
+    await ref.doc(docId).set(record, { merge : true });
+    return record;
+  } catch(e) {
+    console.error(e);
+    return null;
+  }
+}
