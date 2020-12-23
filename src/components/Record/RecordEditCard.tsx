@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 import { postRecord } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { NeumorphismBox } from 'src/style/Neumorphism';
+import { IRecord } from 'src/types';
 import RecordEditForm from './RecordEditForm';
 
 const useStyles = makeStyles({
@@ -53,11 +54,12 @@ function RecordEditCard() {
 
     const submitPostRecord = async(uid: string, url?: string) => {
       const result = await postRecord(uid, {
-        id : new Date().getTime(),
+        id : String(new Date().getTime()),
         title : title,
         content : content,
         dDay : date.format('YYYY-MM-DD'),
-        image : url || ''
+        image : url || '',
+        detailRecords : [] as IRecord[]
       });
       if (result) history.push('/');
       else alert('등록에 실패했습니다.');

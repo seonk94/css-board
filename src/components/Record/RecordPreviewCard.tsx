@@ -8,6 +8,7 @@ import { NeumorphismBox } from 'src/style/Neumorphism';
 
 interface Props {
   record : IRecord;
+  handleClick? : (id : string) => void;
 }
 
 const useStyles = makeStyles({
@@ -27,17 +28,12 @@ const useStyles = makeStyles({
   }
 });
 
-function RecordPreviewCard({ record } : Props) {
+function RecordPreviewCard({ record, handleClick } : Props) {
   const classes = useStyles();
-  const history = useHistory();
-
-  const handleClick = () => {
-    history.push(`/d-day/${record.id}`);
-  };
 
   return (
     <Paper
-      onClick={handleClick}
+      onClick={() => handleClick && handleClick(record.id)}
       className={classes.root}>
       <CardHeader 
         className={classes.header}

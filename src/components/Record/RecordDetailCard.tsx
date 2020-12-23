@@ -4,6 +4,8 @@ import { getRecordById } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { IRecord } from 'src/types';
 import { NeumorphismBox } from 'src/style/Neumorphism';
+import AddRecordScheduleButton from './AddRecordScheduleButton';
+import RecordPreviewCard from './RecordPreviewCard';
 
 const useStyles = makeStyles({
   root : {
@@ -16,43 +18,13 @@ const useStyles = makeStyles({
   }
 });
 interface Props {
-  id: string;
+  record: IRecord;
 }
-function RecordDetailCard({ id } : Props) {
-  const { user } = useContext(firebaseAuth);
-  const [record, setRecord] = useState<IRecord | null>(null);
-  const classes = useStyles();
-  useEffect(() => {
-    const fetchRecord = async () => {
-      if (user?.uid) {
-        const record = await getRecordById(user.uid, id);
-        setRecord(record as IRecord);
-      }
-    };
-    fetchRecord();
-  }, []);
+function RecordDetailCard({ record } : Props) {
   return (
-    record 
-      ? <Paper
-        className={classes.root}>
-        <CardHeader
-          title={record.title}
-          subheader={record.dDay}
-        />
-        {
-          record.image && <CardMedia className={classes.media}
-            image={record.image}/>
-        }
-        <CardContent>
-          <Typography variant="body2"
-            component="p">
-            {record.content}
-          </Typography>
-        </CardContent>
-      </Paper>
-      : <h3>
-        Not found Id
-      </h3>
+    <div>
+      {record.id}
+    </div>
   );
 }
 

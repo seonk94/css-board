@@ -1,8 +1,7 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
-import { Match } from '@testing-library/react';
 import React from 'react';
 import { match } from 'react-router';
-import { RecordDetailCard } from 'src/components/Record';
+import RecordDetailTemplate from 'src/components/Record/RecordDetailTemplate';
 
 const useStyles = makeStyles({
   gridContainer : {
@@ -34,7 +33,7 @@ function dDay({ match } : Props) {
           className={classes.gridItem}
           xs={12}
           md={8}>
-          <RecordDetailCard id={recordId}/>          
+          <RecordDetailTemplate id={recordId}/>          
         </Grid>
       </Grid>
     </Container>

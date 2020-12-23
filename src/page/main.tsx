@@ -1,6 +1,7 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
-import { RecordPreviewCard } from 'src/components/Record';
+import { useHistory } from 'react-router';
+import RecordPreviewCard from 'src/components/Record/RecordPreviewCard';
 import { getAllRecord, getRecordById } from 'src/firebase/database/record';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { IRecord } from 'src/types';
@@ -18,6 +19,11 @@ function main() {
   const classes = useStyles();
   const [records, setRecords] = useState([] as IRecord[]);
   const { user } = useContext(firebaseAuth);
+  const history = useHistory();
+
+  const handleClick = (id : string) => {
+    history.push(`/d-day/${id}`);
+  };
   
   useEffect(() => {
     const fetchRecords = async () => {
@@ -46,7 +52,8 @@ function main() {
             className={classes.gridItem}
             xs={12}
             md={8}>
-            <RecordPreviewCard record={record}/>
+            <RecordPreviewCard handleClick={handleClick}
+              record={record}/>
           </Grid>)}
       </Grid>
     </Container>
