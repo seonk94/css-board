@@ -26,7 +26,7 @@ function RecordDetailTemplate({ id } : Props) {
     record 
       ? <>
         <RecordPreviewCard record={record}/>
-        <AddRecordScheduleButton/>
+        <AddRecordScheduleButton record={record}/>
         {
           (record.detailRecords || []).map(r => <RecordDetailCard record={r}
             key={r.id}/>)
