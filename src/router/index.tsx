@@ -13,38 +13,42 @@ import dDay from 'src/page/dDay';
 
 function Root() {
   const matches = useMediaQuery('(min-width:600px)');
-  const { user } = useContext(firebaseAuth);
+  const { user, loadingAuthState } = useContext(firebaseAuth);
 
-  return (
-    <>
-      {matches && <Appbar/>}
-      <Switch>
-        <Route exact
-          path="/login"
-          component={login} />
-        <AuthRoute exact
-          path="/create"
-          user={user}
-          component={create} />
-        <AuthRoute exact
-          path="/d-day/:id"
-          user={user}
-          component={dDay} />
-        <AuthRoute exact
-          path="/setting"
-          user={user}
-          component={setting} />
-        <AuthRoute
-          exact
-          path="/"
-          user={user}
-          component={main} />
-        <AuthRoute 
-          path="*"
-          to="/" />
-      </Switch>
-      {!matches && <BottomNavigator/>} 
-    </>
-  );
+  return <>
+    {
+      loadingAuthState
+        ? <h3>Loading...</h3>
+        : <>
+          {matches && <Appbar/>}
+          <Switch>
+            <Route exact
+              path="/login"
+              component={login} />
+            <AuthRoute exact
+              path="/create"
+              user={user}
+              component={create} />
+            <AuthRoute exact
+              path="/d-day/:id"
+              user={user}
+              component={dDay} />
+            <AuthRoute exact
+              path="/setting"
+              user={user}
+              component={setting} />
+            <AuthRoute
+              exact
+              path="/"
+              user={user}
+              component={main} />
+            <AuthRoute 
+              path="*"
+              to="/" />
+          </Switch>
+          {!matches && <BottomNavigator/>} 
+        </>
+    }
+  </>;
 }
 export default Root;

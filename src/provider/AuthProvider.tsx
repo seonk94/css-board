@@ -8,6 +8,7 @@ interface ContextType {
   signOut : () => void;
   user : null | firebase.default.User;
   error : null | string;
+  loadingAuthState : boolean;
 }
 
 export const firebaseAuth = React.createContext<ContextType>({} as ContextType);
@@ -18,11 +19,13 @@ interface Props {
 
 function AuthProvider({ children } : Props) {
   const [user, setUser] = useState<null | firebase.default.User>(null);
+  const [loadingAuthState, setLoadingAuthState] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
       if (user) setUser(user);
+      setLoadingAuthState(false);
     });
   }, []);
 
@@ -59,7 +62,8 @@ function AuthProvider({ children } : Props) {
       signIn : handleSignIn,
       signOut : handleSignOut,
       user : user,
-      error : error
+      error : error,
+      loadingAuthState : loadingAuthState
     }}>
       {children}
     </firebaseAuth.Provider>
