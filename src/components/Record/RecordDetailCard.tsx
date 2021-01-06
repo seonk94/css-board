@@ -1,30 +1,55 @@
-import { CardContent, CardHeader, CardMedia, makeStyles, Paper, Typography } from '@material-ui/core';
-import React, { useContext, useEffect, useState } from 'react';
-import { getRecordById } from 'src/firebase/database/record';
-import { firebaseAuth } from 'src/provider/AuthProvider';
+import { Box, Collapse, makeStyles, Paper, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
 import { IRecord } from 'src/types';
 import { NeumorphismBox } from 'src/style/Neumorphism';
-import AddRecordScheduleButton from './AddRecordScheduleButton';
 import RecordPreviewCard from './RecordPreviewCard';
+import Spacer from '../common/Spacer';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root : {
     margin : '1rem',
     ...NeumorphismBox
   },
-  media : {
-    height : 0,
-    paddingTop : '56.25%'
+  button : {
+    display : 'flex',
+    alignItems : 'center',
+    justifyContent : 'center',
+    padding : '1rem',
+    '&:hover' : {
+      cursor : 'pointer'
+    }
+  },
+  paperRoot : {
   }
 });
 interface Props {
   record: IRecord;
 }
 function RecordDetailCard({ record } : Props) {
+  const classes = useStyles();
+  const [expand, setExpand] = useState(false);
   return (
-    <div>
-      {record.id}
-    </div>
+    <>
+      <Paper className={classes.root}>
+        <Box className={classes.button}
+          onClick={() => setExpand(!expand)}>
+          <Typography variant="h6"
+            component="p">
+            {record.dDay}
+          </Typography>
+          <Spacer/>
+          {
+            expand ? <ExpandLess/> : <ExpandMore/>
+          }
+        </Box>
+      </Paper>
+      <Collapse in={expand}>
+        <Box className={classes.paperRoot}>
+          <RecordPreviewCard record={record}/>
+        </Box>
+      </Collapse>
+    </>
   );
 }
 
