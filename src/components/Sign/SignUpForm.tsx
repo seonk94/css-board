@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, makeStyles, TextField, Typography } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
-import useInputs from 'src/hooks/useInputs';
+import useInputs from 'src/lib/hooks/useInputs';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 
 

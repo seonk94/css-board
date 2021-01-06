@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { firebaseAuth } from 'src/provider/AuthProvider';
 import { SignUpForm } from './';
 import { NeumorphismBox } from 'src/style/Neumorphism';
-import useInputs from 'src/hooks/useInputs';
+import useInputs from 'src/lib/hooks/useInputs';
 
 const useStyles = makeStyles({
   card : {

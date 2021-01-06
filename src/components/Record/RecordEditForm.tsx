@@ -1,8 +1,8 @@
 import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import React from 'react';
-import useDate from 'src/hooks/useDate';
-import useFileInput from 'src/hooks/useFileInput';
-import useInputs from 'src/hooks/useInputs';
+import useDate from 'src/lib/hooks/useDate';
+import useFileInput from 'src/lib/hooks/useFileInput';
+import useInputs from 'src/lib/hooks/useInputs';
 import DatePickerBox from '../common/DatePickerBox';
 import FileInputBox from '../common/FileInputBox';
 const useStyles = makeStyles({
